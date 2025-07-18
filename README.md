@@ -48,3 +48,6 @@ C:\tools\LuaJIT>luajit -v
 LuaJIT 2.1.1748459687 -- Copyright (C) 2005-2025 Mike Pall. https://luajit.org/
 ```
 
+## Language Server
+
+Я использую VS Code, расширение Lua от sumneko
