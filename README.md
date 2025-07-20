@@ -2,6 +2,11 @@
 
 Хочу освоить язык lua. Тут играюсь с luajit. Читаю `Роберту Иерузалимски - "Программирование на языке Lua"`
 
+## Ссылки
+
+- Lua 5.1 Reference Manual - [www.lua.org/manual/5.1/](https://www.lua.org/manual/5.1/)
+- Lua 5.1 Reference Manual на русском - [linuxshare.ru/docs/devel/languages/lua/reference/index.html](https://linuxshare.ru/docs/devel/languages/lua/reference/index.html)
+
 ## Установка luajit (Windows)
 
 ### Установка
