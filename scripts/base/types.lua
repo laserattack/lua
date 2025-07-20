@@ -1,3 +1,5 @@
+---@diagnostic disable: assign-type-mismatch
+
 --[[
 В Lua существует восемь базовых типов: nil, boolean, number, string,
 table, function, userdata и thread. Функция type возвращает имя типа
@@ -261,3 +263,18 @@ print(a['name'], a.name) -- serr    serr
 a = {}
 for i = 1, 1000 do a[i] = i end
 print(a[1]) -- 1
+
+local ffi = require("ffi")
+
+-- Интересная особенность с null и nil в LuaJIT
+
+null = ffi.new("void*")
+print(null == nil) -- true
+
+if null then
+    print(123) -- печатается
+end
+
+if nil then
+    print(124) -- не печатается
+end
