@@ -6,12 +6,11 @@
 
 - Lua 5.1 Reference Manual - [www.lua.org/manual/5.1/](https://www.lua.org/manual/5.1/)
 - Lua 5.1 Reference Manual на русском - [linuxshare.ru/docs/devel/languages/lua/reference/index.html](https://linuxshare.ru/docs/devel/languages/lua/reference/index.html)
+- Репозиторий с исходниками LuaJIT - [github.com/LuaJIT/LuaJIT](https://github.com/LuaJIT/LuaJIT)
 
 ## Установка luajit (Windows)
 
 ### Установка
-
-Репозиторий `https://github.com/LuaJIT/LuaJIT`
 
 ```
 **********************************************************************
