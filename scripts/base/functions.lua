@@ -104,3 +104,17 @@ local function fact(n)
 end
 
 print(fact(5)) -- 120
+
+-- лексическое окружение функции - область видимости в которой она определена
+-- функция имеет доступ ко всему в своей области видимости
+local count = 0
+local foo = function ()
+    count = count + 1
+    return count
+end
+
+print(foo()) -- 1
+print(foo()) -- 2
+print(foo()) -- 3
+print(foo()) -- 4
+print(foo()) -- 5
