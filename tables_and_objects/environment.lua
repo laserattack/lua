@@ -1,17 +1,17 @@
+-- Вывод имен всех глобальных (системных)
+-- переменных (ключей в таблице глобальных переменных)
+for n in pairs(_G) do print(n) end
+
 -- Запрет создавать новые глобальные переменные
 -- + Запрет читать какие то несуществующие глобальные переменные
 setmetatable(_G, {
     __newindex = function (_, n)
-        error("attempt to write to undeclared variable " .. n, 2)
+        error("attempt to write to undeclared global variable " .. n, 2)
     end,
     __index = function (_, n)
-        error("attempt to read undeclared variable " .. n, 2)
+        error("attempt to read undeclared global variable " .. n, 2)
     end,
 })
-
--- Вывод имен всех глобальных (системных)
--- переменных (ключей в таблице глобальных переменных)
-for n in pairs(_G) do print(n) end
 
 -- попытка создать глобальную переменную
 local _, err = pcall(function () A = 1 end)

@@ -118,3 +118,8 @@ print(foo()) -- 2
 print(foo()) -- 3
 print(foo()) -- 4
 print(foo()) -- 5
+
+-- способ вызвать анонимную функцию сразу после объявления
+local _ = (function()
+   print(123)
+end)()
