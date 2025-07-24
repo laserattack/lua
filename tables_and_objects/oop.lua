@@ -114,8 +114,24 @@ print(b.balance) --> 1000
 --  |_|_| |_|_| |_|\___|_|  |_|\__|
 
 local a = Account:new()
-local msg = select(2, pcall(a.withdraw, a, 10))
+local msg = select(2, pcall(
+    function()
+        a:withdraw(10)
+    end
+))
 print(msg) -- .\tables_and_objects\oop.lua:91: insufficient funds
 
 -- От этого класса мы можем унаследовать подкласс SpecialAccount,
 -- позволяющий покупателю снять больше, чем есть на его балансе.
+
+local SpecialAccount = Account:new()
+-- просто задаем метод withdraw
+function SpecialAccount:withdraw(v)
+    self.balance = self.balance - v
+end
+
+local s = SpecialAccount:new()
+s:withdraw(1000)
+print(s.balance) --> -1000
+s:deposit(1000000)
+print(s.balance) --> 999000
