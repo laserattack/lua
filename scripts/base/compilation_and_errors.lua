@@ -16,7 +16,6 @@
 --         .\scripts\base\compilation.lua:9: in main chunk
 --         [C]: at 0x7ff6ef254830
 
-
 -- в директории с текущим скриптом тестовый файл "hellosailor.lua"
 local exec_path = arg[0]:gsub("[^\\]+$", "").."hellosailor.lua"
 
@@ -119,3 +118,120 @@ os.remove(tmp)
 --  |  __/ |  | | | (_) | |  \__ \
 --   \___|_|  |_|  \___/|_|  |___/
 
+-- Ошибки можно искуственно вызывать с помощью функции error
+
+local number = 10
+if type(number) ~= "number" then
+    error("type error")
+end
+
+-- тут будет type error например
+-- local number = "10"
+-- if type(number) ~= "number" then
+--     error("type error")
+-- end
+
+-- Частый случай ошибки - nil в переменной где его не должно быть
+local no_nil = 123
+if not no_nil then
+    error("value error")
+end
+-- local no_nil = nil
+-- if not no_nil then
+--     error("value error")
+-- end
+-- Для такой конструкции создана функция assert
+local no_nil = 123
+-- assert возвращает все свои аргументы
+print(assert(no_nil, "value error")) -- 123     value error
+-- local no_nil = nil
+-- assert(no_nil, "value error")
+
+-- Когда функция обнаруживает непредвиденную ситуацию
+-- (исключение), ей доступны две основные линии поведения: вернуть код
+-- ошибки (обычно nil) или вызвать ошибку посредством вызова функции
+-- error. Не существует жестких правил для выбора между этими двумя
+-- вариантами, но мы можем дать общую рекомендацию: исключение,
+-- которое легко обходится, должно вызывать ошибку; иначе оно должно
+-- вернуть код ошибки.
+
+-- С помощью pcall (protected call) можно перехватить любое исключение
+local status, error_message = pcall(function ()
+    local no_nil = nil
+    assert(no_nil)
+end)
+print(status, error_message) -- false   .\scripts\base\compilation.lua:163: assertion failed!
+
+-- В случае успеха возвращает первым значением также статус, а далее 
+-- все возвращаемые функцией значения
+local results = {pcall(function ()
+    local no_nil = 123
+    assert(no_nil)
+    return "a", "b", "c"
+end)}
+for k, v in ipairs(results) do
+    print(k, v)
+end
+-- 1       true
+-- 2       a
+-- 3       b
+-- 4       c
+
+
+--                              _                _     
+--                             | |              | |    
+--    ___ _ __ _ __ ___  _ __  | | _____   _____| |___ 
+--   / _ \ '__| '__/ _ \| '__| | |/ _ \ \ / / _ \ / __|
+--  |  __/ |  | | | (_) | |    | |  __/\ V /  __/ \__ \
+--   \___|_|  |_|  \___/|_|    |_|\___| \_/ \___|_|___/
+
+local function foo(str)
+    if type(str) ~= "string" then
+        error("string expected", 1) -- уровень ошибок первый
+    end
+end
+-- Ошибка на 191 строке - в самой функции foo
+print(pcall(function ()
+   foo() -- false   .\scripts\base\compilation.lua:191: string expected
+end))
+
+
+local function foo(str)
+    if type(str) ~= "string" then
+        error("string expected", 2) -- уровень ошибок второй
+    end
+end
+-- Ошибка на 208 строке - на строке с вызовом foo
+print(pcall(function ()
+   foo() -- false   .\scripts\base\compilation.lua:208: string expected
+end))
+
+
+--                  _                    _                     _ _           
+--                 | |                  | |                   | | |          
+--    ___ _   _ ___| |_ ___  _ __ ___   | |__   __ _ _ __   __| | | ___ _ __ 
+--   / __| | | / __| __/ _ \| '_ ` _ \  | '_ \ / _` | '_ \ / _` | |/ _ \ '__|
+--  | (__| |_| \__ \ || (_) | | | | | | | | | | (_| | | | | (_| | |  __/ |   
+--   \___|\__,_|___/\__\___/|_| |_| |_| |_| |_|\__,_|_| |_|\__,_|_|\___|_|   
+
+-- расширенный pcall, позволяет настроить сообщение об ошибке, например получить более подробное
+
+local function dangerous_function(x)
+    if not x then
+        error("value error")
+    end
+end
+
+local function error_handler(err)
+    print("error:", err)
+    print("stack:")
+    print(debug.traceback())
+    return "error handled!!"
+end
+
+local ok, result = xpcall(dangerous_function, error_handler, nil)
+if ok then
+    print("result:", result)
+else
+    print("error:", result)
+end
