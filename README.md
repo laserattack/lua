@@ -1,4 +1,4 @@
-# luajit-playground
+# lua-playground
 
 Изучаю Lua, LuaJIT и т.д. Играюсь, тестирую, проверяю
 
