@@ -94,3 +94,95 @@ local co = coroutine.create(function(a, b)
 end)
 local _, sum, diff = coroutine.resume(co, 20, 10)
 print(sum, diff)  --> 30      10
+
+--   _ _                 _                 
+--  (_) |               | |                
+--   _| |_ ___ _ __ __ _| |_ ___  _ __ ___ 
+--  | | __/ _ \ '__/ _` | __/ _ \| '__/ __|
+--  | | ||  __/ | | (_| | || (_) | |  \__ \
+--  |_|\__\___|_|  \__,_|\__\___/|_|  |___/
+
+print()
+-- Производитель (сопрограмма)
+local function producer(t)
+    for i = 1, #t do
+        coroutine.yield(t[i])  -- "выдаём" текущий элемент
+    end
+end
+-- Итератор на основе сопрограммы
+local function iter(t)
+    local co = coroutine.create(function()
+        producer(t)
+    end)
+    return function()  -- возвращаем функцию-итератор
+        local _, value = coroutine.resume(co)
+        return value
+    end
+end
+-- Использование
+local myTable = {10, 20, 30}
+for item in iter(myTable) do
+    print(item)  --> 10, 20, 30
+end
+
+
+-- Пример итератота на корутинах который сложно
+-- реализовать обычными замыканиями
+
+-- Обычное замыкание для обхода таблицы
+-- local function values(t)
+--     local i = 0
+--     return function()
+--         i = i + 1
+--         return t[i]
+--     end
+-- end
+
+-- Но что если надо обойти таблицу произвольной вложенности?
+
+local t = {
+    "A",
+    {
+        "B",
+        {"B1", "B2", "B3"},
+        "C",
+        {
+            "C1",
+            {"C1a", "C1b"},
+            "C2"
+        }
+    },
+    "D"
+}
+
+local function values(t)
+    local co = coroutine.create(function ()
+        local function traverse(node)
+            if type(node) == "table" then
+                for _, child in ipairs(node) do
+                    traverse(child)
+                end
+            else
+                coroutine.yield(node) -- Значение листа
+            end
+        end
+        traverse(t)
+    end)
+
+    return function ()
+        local _, value = coroutine.resume(co)
+        return value
+    end
+end
+
+for item in values(t) do
+    print(item)  --> A,B,B1,B2,B3,C,C1,C1a,C1b,C2,D
+end
+
+-- Почему рекурсивный итератор сложно реализовать на обычных замыканиях?
+-- Проблема сохранения состояния рекурсии
+-- Обычные замыкания хранят состояние в локальных переменных, но для рекурсивного обхода нужно:
+--     Запоминать текущую позицию на каждом уровне вложенности
+--     Отслеживать, какие узлы уже были обработаны
+--     Уметь "возвращаться" из вложенных вызовов
+-- В примере с корутинами это решается автоматически - стек вызовов сохраняется самой корутиной.
