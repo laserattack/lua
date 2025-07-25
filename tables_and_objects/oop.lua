@@ -388,7 +388,7 @@ end
 local a = Account:new()
 print(a.balance)
 Account.__tostring = function () return "string" end
-print(a) -- table: 0x02783b5b12b0
+print(a) -- table: 0x02783b5b12b0 (tostring не сработал)
 
 -- Вариант 2
 
