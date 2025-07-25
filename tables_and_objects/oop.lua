@@ -284,3 +284,137 @@ local pa = createPremiumAccount()
 pa.deposit(100)
 print(pa.getBalance())
 pa.status()
+
+
+
+-- Далее некоторые нюансы
+
+print()
+
+-- класс аккаунт
+
+local Account = {
+    -- описываются атрибуты класса по умолчанию
+    balance = 0,
+}
+
+-- описываются методы класса
+
+-- создание нового объекта
+function Account:new(obj)
+    obj = obj or {} -- если таблица не передана, то пустая таблица
+    -- метатаблица - та, в которой ищется если нет в obj
+    -- в данном случае - таблица Account
+    setmetatable(obj, self)
+    self.__index = self -- если нет поля в obj - искать в Account
+    -- т.е. таблица Account назначена метатаблицей для obj
+    return obj
+end
+function Account:deposit(v)
+    -- первым делом выполняется часть
+    -- self.balance + v
+    -- ищется поле balance в self. 
+    -- если его нет, то берется из Account (0)
+
+    -- далее прибавляется v к значению полученному из пред. пункта
+    -- и кладется в поле balance в self
+    -- если такого поля в объекте не было - оно создается
+    self.balance = self.balance + v
+end
+-- просто функция, находящаяся в таблице Account
+-- function Account.deposit(self, v)
+--     self.balance = self.balance + v
+-- end
+
+local a = Account:new()
+a:deposit(100)
+print(a.balance)
+
+
+-- Наследование
+
+SpecialAccount = Account:new()
+function SpecialAccount:deposit(v)
+    self.balance = self.balance + 1.1*v
+end
+local sa = SpecialAccount:new()
+sa:deposit(100)
+print(sa.balance)
+
+
+
+
+-- Разница между 
+
+print()
+
+-- local Account = {
+--     balance = 0,
+-- }
+-- function Account:new(obj)
+--     obj = obj or {}
+--     setmetatable(obj, {
+--         __index = Account
+--     })
+--     return obj
+-- end
+
+-- и 
+
+-- local Account = {
+--     balance = 0,
+-- }
+-- function Account:new(obj)
+--     obj = obj or {}
+--     setmetatable(obj, self)
+--     self.__index = self
+--     return obj
+-- end
+
+
+-- Вариант 1
+
+local Account = {
+    balance = 0,
+}
+function Account:new(obj)
+    obj = obj or {}
+    setmetatable(obj, {
+        __index = Account
+    })
+    return obj
+end
+
+local a = Account:new()
+print(a.balance)
+Account.__tostring = function () return "string" end
+print(a) -- table: 0x02783b5b12b0
+
+-- Вариант 2
+
+local Account = {
+    balance = 0,
+}
+function Account:new(obj)
+    obj = obj or {}
+    setmetatable(obj, self)
+    self.__index = self
+    return obj
+end
+
+local a = Account:new()
+print(a.balance)
+Account.__tostring = function () return "string" end
+print(a) -- string
+
+-- Это потому что в первом варианте метатаблицей назначилась
+-- анонимная метатаблица к которой нет доступа и если надо будет добавить 
+-- какой то метаметод то этого не получится сделать
+
+-- А во втором варианте метатаблицей сделали саму шаблонную таблицу Account
+-- и если надо какой то метаметод назначить - это легко делается
+-- и метаметод работает на каждом объекте класса, потому что
+-- ищется в объекте -> не находит -> ищется в Account -> находит
+
+-- ну и плюсом для каждого экземпляра не создается новая метатаблица,
+-- метатаблица одна на весь класс
