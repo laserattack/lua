@@ -135,3 +135,73 @@ s:withdraw(1000)
 print(s.balance) --> -1000
 s:deposit(1000000)
 print(s.balance) --> 999000
+
+--                   _ _   _       _        _       _               _ _   
+--                  | | | (_)     | |      (_)     | |             (_) |  
+--   _ __ ___  _   _| | |_ _ _ __ | | ___   _ _ __ | |__   ___ _ __ _| |_ 
+--  | '_ ` _ \| | | | | __| | '_ \| |/ _ \ | | '_ \| '_ \ / _ \ '__| | __|
+--  | | | | | | |_| | | |_| | |_) | |  __/ | | | | | | | |  __/ |  | | |_ 
+--  |_| |_| |_|\__,_|_|\__|_| .__/|_|\___| |_|_| |_|_| |_|\___|_|  |_|\__|
+--                          | |                                           
+--                          |_|                                           
+
+-- класс логгера
+local Logger = {}
+function Logger:new(o)
+    o = o or {}
+    setmetatable(o, self)
+    self.__index = self
+    return o
+end
+function Logger:log(message)
+    print("LOG:", message)
+end
+-- пример объекта класса
+local l = Logger:new()
+l:log("test") --> LOG:    test
+
+-- 
+local function createClass(...) -- принимает любое кол-во таблиц (классов)
+    local parents = {...} -- таблица всех классов
+    local c = {} -- новый класс
+
+    -- если в комбинированном классе нет какого то поля
+    -- то оно ищется в родительских классах
+    setmetatable(c, {
+        __index = function (_, k)
+            for _, class in ipairs(parents) do
+                local value = class[k]
+                if value then
+                    return value
+                end
+            end
+        end
+    })
+
+    -- сам комбинированный класс должен являться метатаблицей
+    -- для своих экземпляров
+    c.__index = c
+    function c:new(o)
+        o = o or {}
+        setmetatable(o, c)
+        return o
+    end
+
+    return c
+end
+
+print()
+
+-- наследуемся от Logger, Account
+local LoggingAccount = createClass(Logger, Account)
+-- добавляем собственный метод
+function LoggingAccount:greet()
+    print("hello")
+end
+local la = LoggingAccount:new()
+print(la.balance) -- 0
+la:log("test") -- test
+la:deposit(1000)
+la:withdraw(777)
+print(la.balance) -- 223
+la:greet() --> hello
