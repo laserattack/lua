@@ -6,6 +6,22 @@
 -- And these print as signed decimal numbers by default.
 -- т.е. все битовые операции возвращают 32-битные числа
 
+-- for k in pairs(bit) do print(k) end
+-- Все что есть в bit:
+
+-- lshift --> сдвиг влево
+-- rshift --> сдвиг вправо
+-- arshift --> арифметический сдвиг
+-- rol --> циклический сдвиг влево
+-- ror --> циклический сдвиг вправо
+-- band --> побитовое AND
+-- bor --> побитовое OR
+-- bxor --> побитовое XOR
+-- tohex --> обычное число в hex (возвращает строку)
+-- tobit --> приведение числа к 32-битному целому со знаком
+-- bnot --> побитово обратное число
+-- bswap --> little endian <-> big endian
+
 local function printx (x)
     print(bit.tohex(x))
 end
