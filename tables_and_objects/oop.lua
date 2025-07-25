@@ -205,3 +205,82 @@ la:deposit(1000)
 la:withdraw(777)
 print(la.balance) -- 223
 la:greet() --> hello
+
+--              _                       
+--             (_)                      
+--   _ __  _ __ ___   ____ _  ___ _   _ 
+--  | '_ \| '__| \ \ / / _` |/ __| | | |
+--  | |_) | |  | |\ V / (_| | (__| |_| |
+--  | .__/|_|  |_| \_/ \__,_|\___|\__, |
+--  | |                            __/ |
+--  |_|                           |___/ 
+
+print()
+
+local function createAccount()
+    -- внутреннее представление (приватные поля)
+    local self = {
+        balance = 0
+    }
+
+    local withdraw = function (v)
+        self.balance = self.balance - v
+    end
+    local deposit = function (v)
+        self.balance = self.balance + v
+    end
+    local getBalance = function ()
+        return self.balance
+    end
+
+    -- публичный интерфейс
+    local public = {
+        withdraw = withdraw,
+        deposit = deposit,
+        getBalance = getBalance
+    }
+
+    return public
+end
+
+local a = createAccount()
+a.deposit(100)
+print(a.getBalance()) --> 100
+
+-- наследоваться от такого класса можно так
+
+print()
+
+local function createPremiumAccount()
+    local self = {
+        status = "gold"
+    } -- внутренне представление (приватные поля)
+
+    local parent = createAccount()
+
+    local status = function() -- новый метод
+        print("status:", self.status)
+    end
+
+    local deposit = function(v) -- переопределение старого метода
+        -- Добавляем бонус для premium-аккаунтов
+        parent.deposit(v * 1.1) -- +10% бонус
+    end
+
+    -- публичный интерфейс
+    local public = {
+        status = status,
+        deposit = deposit
+    }
+
+    setmetatable(public, {
+        __index = parent
+    })
+
+    return public
+end
+
+local pa = createPremiumAccount()
+pa.deposit(100)
+print(pa.getBalance())
+pa.status()
