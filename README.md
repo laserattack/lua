@@ -1,4 +1,4 @@
-# lua-playground
+# lua-knowledge-base
 
 Изучаю Lua, LuaJIT и т.д. Играюсь, тестирую, проверяю, пишу гайды
 
