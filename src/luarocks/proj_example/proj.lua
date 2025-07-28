@@ -1,41 +1,23 @@
 
--- Чтобы установить пакет (например, luasocket) в подпапку проекта (например, lua_modules), 
--- выполните: luarocks install --tree ./lua_modules luasocket
+-- Чтобы установить пакет (например, luv) в подпапку проекта (например, lua_modules), 
+-- выполните: luarocks install --tree ./lua_modules luv
 
 -- запускается через luajit -l set_paths proj.lua
 -- эта команда запускает скрипт proj.lua в LuaJIT с предварительной загрузкой set_paths.lua
 
-local luasocket = require("socket")
+local uv = require('luv')  -- Импорт библиотеки
 
-for k, v in pairs(luasocket) do print(k) end
+-- Создаём таймер
+local timer = uv.new_timer()
 
--- tcp
--- _DATAGRAMSIZE
--- _SETSIZE
--- _SOCKETINVALID
--- newtry
--- connect4
--- source
--- sink
--- connect
--- sinkt
--- connect6
--- sourcet
--- bind
--- BLOCKSIZE
--- choose
--- try
--- sleep
--- udp6
--- tcp6
--- dns
--- select
--- skip
--- __unload
--- _DEBUG
--- _VERSION
--- protect
--- gettime
--- tcp4
--- udp
--- udp4
+-- Запускаем таймер:
+-- 1000 - задержка старта (мс)
+-- 2000 - интервал повторения (мс)
+timer:start(1000, 2000, function()
+    print(os.date("%H:%M:%S"))
+end)
+
+print("The timer is running")
+
+-- Запускаем цикл событий
+uv.run()
