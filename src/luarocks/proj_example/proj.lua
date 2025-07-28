@@ -3,6 +3,7 @@
 -- выполните: luarocks install --tree ./lua_modules luasocket
 
 -- запускается через luajit -l set_paths proj.lua
+-- эта команда запускает скрипт proj.lua в LuaJIT с предварительной загрузкой set_paths.lua
 
 local luasocket = require("socket")
 
