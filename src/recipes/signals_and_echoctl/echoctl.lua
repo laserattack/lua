@@ -1,16 +1,16 @@
+local ffi = require("ffi")
+
+-- отключение вывода управляющих конструкций
 local function disable_control_echo()
-    local is_windows = package.config:sub(1,1) == "\\"
+    local is_windows = ffi.os == "Windows"
 
     if is_windows then
-        local ok, ffi = pcall(require, "ffi")
-        if ok then
-            ffi.cdef[[
-                int SetConsoleMode(void* hConsoleHandle, int dwMode);
-                void* GetStdHandle(int nStdHandle);
-            ]]
-            local handle = ffi.C.GetStdHandle(-10)  -- STD_INPUT_HANDLE
-            ffi.C.SetConsoleMode(handle, 0x0080)    -- ENABLE_VIRTUAL_TERMINAL_INPUT
-        end
+        ffi.cdef[[
+            int SetConsoleMode(void* hConsoleHandle, int dwMode);
+            void* GetStdHandle(int nStdHandle);
+        ]]
+        local handle = ffi.C.GetStdHandle(-10)  -- STD_INPUT_HANDLE
+        ffi.C.SetConsoleMode(handle, 0x0080)    -- ENABLE_VIRTUAL_TERMINAL_INPUT
     else
         os.execute("stty -echoctl 2>/dev/null")
     end
