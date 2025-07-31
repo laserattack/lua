@@ -40,13 +40,14 @@ function Main()
     -- блок с собственной областью видимости
     do
         local local_a = "hello" -- локальная переменная
+        ---@diagnostic disable-next-line: lowercase-global
         global_a = "hello" -- глобальная переменная (глобальные переменные можно создавать где угодно)
     end
 
     local local_b = ", sailor!"
 
     -- переменная local_a видна только в том блоке где определена
-     ---@diagnostic disable-next-line: undefined-global
+    ---@diagnostic disable-next-line: undefined-global
     print(local_a, local_b) -- nil       , sailor!
     print(global_a, local_b) -- hello   , sailor!
 end
