@@ -39,7 +39,7 @@ printx(bit.band(0xFFA, 0xFAF, 0xAFF)) --> 00000aaa
 printx(bit.bxor(0, 0xAAA, 0)) --> 00000aaa
 
 print(select(2, pcall(function ()
-    printx(bit.bor())
+    printx(bit.bor()) ---@diagnostic disable-line: missing-parameter
 end))) -- bad argument #1 to 'bor' (number expected, got no value)
 
 

@@ -12,14 +12,14 @@ local a, b = 10, 2
 print(a, b) -- 10      2
 
 -- Список переменных длиннее чем список значнеий 
-local a, b, c = 0, 1
+local a, b, c = 0, 1 ---@diagnostic disable-line: unbalanced-assignments
 print(a, b, c) -- 0       1       nil
 -- станет a = nil не смотря на то что a была инициализирована 
-b, a = 1
+b, a = 1 ---@diagnostic disable-line: unbalanced-assignments
 print(b, a) -- 1       nil
 
 -- Список значений длиннее чем список переменных
-local a, b = 1, 2, 3
+local a, b = 1, 2, 3 ---@diagnostic disable-line: redundant-value
 -- лишние значения просто отбросятся
 
 --  ░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░░▒▓███████▓▒░ 
@@ -46,6 +46,7 @@ function Main()
     local local_b = ", sailor!"
 
     -- переменная local_a видна только в том блоке где определена
+     ---@diagnostic disable-next-line: undefined-global
     print(local_a, local_b) -- nil       , sailor!
     print(global_a, local_b) -- hello   , sailor!
 end
