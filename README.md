@@ -43,7 +43,7 @@ serr@home:~$
 
 Далее минимальный список того что надо установить на скрине
 
-![assets/pics/build_tools.jpg]
+![Build Tools](./assets/pics/build_tools.jpg)
 ### Установка
 
 Репозиторий - [github.com/LuaJIT/LuaJIT](https://github.com/LuaJIT/LuaJIT)
