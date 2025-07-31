@@ -1,21 +1,21 @@
 #proga/lua 
 # Содержание
-- ## Установка, настройка
-	- ### Установка LuaJIT
-		- [[#Установка LuaJIT (Linux)|Установка LuaJIT (Linux)]]
-		- [[#Установка LuaJIT (Windows)|Установка LuaJIT (Windows)]]
-	- ### Настройка окружения
-		- [[#Language Server|Language Server]]
-		- [[#Package manager|Пакетный менеджер]]
-	- ### Установка LuaRocks
-		- [[#Установка LuaRocks (Linux)|Установка LuaRocks (Linux)]]
-		- [[#Установка LuaRocks (Windows)|Установка LuaRocks (Windows)]]
-	- ### Работа с пакетами
-		- [[#Установка пакетов LuaRocks (Linux)|Установка пакетов (Linux)]]
-		- [[#Установка пакетов LuaRocks (Windows)|Установка пакетов (Windows)]]
-- ## Изучение Lua
-	- [[#Источники информации]]
-
+## Установка и настройка
+- [Установка LuaJIT](#установка-luajit)
+  - [Linux](#установка-luajit-linux)
+  - [Windows](#установка-luajit-windows)
+- [Настройка окружения](#настройка-окружения)
+  - [Language Server](#language-server)
+  - [Пакетный менеджер](#package-manager)
+- [Установка LuaRocks](#установка-luarocks)
+  - [Linux](#установка-luarocks-linux)
+  - [Windows](#установка-luarocks-windows)
+- [Работа с пакетами](#работа-с-пакетами)
+  - [Linux](#установка-пакетов-luarocks-linux)
+  - [Windows](#установка-пакетов-luarocks-windows)
+## Изучение Lua
+- [Источники информации](#источники-информации)
+123
 --- 
 # Установка LuaJIT (Linux) 
 
