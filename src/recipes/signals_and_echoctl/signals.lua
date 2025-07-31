@@ -10,4 +10,4 @@ uv.signal_start(signal_handle, "sigint", function(signal)
 end)
 
 print("Press Ctrl+C for exit...")
-uv.run() -- Запуск цикла событий
+uv.run()
