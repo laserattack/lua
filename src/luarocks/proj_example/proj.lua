@@ -2,8 +2,8 @@
 -- Чтобы установить пакет (например, luv) в подпапку проекта (например, lua_modules), 
 -- выполните: luarocks install --tree ./lua_modules luv
 
--- запускается через luajit -l set_paths proj.lua
--- эта команда запускает скрипт proj.lua в LuaJIT с предварительной загрузкой set_paths.lua
+-- запускается через luajit sp.lua proj.lua
+-- эта команда запускает скрипт proj.lua в LuaJIT с предварительной загрузкой sp.lua
 
 local uv = require('luv')  -- Импорт библиотеки
 

@@ -16,3 +16,7 @@ package.path = tree .. "/share/lua/" .. version .. "/?.lua;" ..
 package.cpath = tree .. "/lib/lua/" .. version .. "/?.so;" ..
                 tree .. "/lib/lua/" .. version .. "/?.dll;" ..
                 package.cpath
+
+if arg[1] and arg[1]:match("%.lua$") then
+    dofile(arg[1])
+end
