@@ -35,6 +35,19 @@ serr@home:~$ luajit -v
 LuaJIT 2.1.1753364724 -- Copyright (C) 2005-2025 Mike Pall. https://luajit.org/
 serr@home:~$
 ```
+
+### Создание симлинка luajit -> lj (опционально)
+
+```
+serr@home:~$ which luajit
+/usr/local/bin/luajit
+serr@home:~$ sudo ln -s /usr/local/bin/luajit /usr/local/bin/lj
+serr@home:~$ lj -v 
+LuaJIT 2.1.1753364724 -- Copyright (C) 2005-2025 Mike Pall. https://luajit.org/
+```
+
+Теперь интерпретатор доступен через `luajit` и `lj`
+
 # Установка LuaJIT (Windows)
 ### Предпосылки
 
