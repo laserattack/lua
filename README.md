@@ -237,6 +237,24 @@ luarocks --version
 ```
 luarocks install --tree ./lua_modules luasocket
 ```
+
+В директории `recipes` в этом репозитории находится скрипт `sp.lua`, он добавляет папку `./lua_modules` в пути в которых интерпретатор ищет модули. Для запуска скрипта, который зависит от `luasocket` надо использовать команду `luajit sp.lua <имя целевого скрипта>`
+
+Лично я закинул `sp.lua` в папку к интерпретатору
+
+```
+serr@home:/usr/local/bin$ ls luajit sp.lua
+luajit  sp.lua
+```
+
+и добавил алиас в `~/.bashrc`
+
+```
+alias ljsp="luajit /usr/local/bin/sp.lua"
+```
+
+Теперь для запуска скрипта, который зависит от `luasocket` просто использую `ljsp <имя целевого скрипта>`
+
 # Установка пакетов LuaRocks (Windows)
 
 Я предпочитаю не засорять компьютер и для каждого проекта устанавливать нужные ему зависимости в директорию с ним
@@ -254,6 +272,8 @@ C:\Users\user\Desktop\luajit-playgrounds\src\luarocks\proj_example>
 ```
 luarocks install --tree ./lua_modules luasocket
 ```
+
+В директории `recipes` в этом репозитории находится скрипт `sp.lua`, он добавляет папку `./lua_modules` в пути в которых интерпретатор ищет модули. Для запуска скрипта, который зависит от `luasocket` надо использовать команду `luajit sp.lua <имя целевого скрипта>`
 
 # Источники информации
 
