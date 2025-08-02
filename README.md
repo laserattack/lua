@@ -38,7 +38,11 @@ serr@home:~$
 
 ### Создание алиаса luajit -> lj (опционально)
 
-В `~/.bashrc` добавить `alias lj="luajit"`
+В `~/.bashrc` добавить 
+
+```bash
+alias lj="luajit"
+```
 
 Теперь интерпретатор доступен через `luajit` и `lj`
 
@@ -251,7 +255,7 @@ luajit  sp.lua
 
 и добавил алиас в `~/.bashrc`
 
-```
+```bash
 alias ljsp="luajit /usr/local/bin/sp.lua"
 ```
 
@@ -259,7 +263,7 @@ alias ljsp="luajit /usr/local/bin/sp.lua"
 
 Также сделал алиас для установки зависимости
 
-```
+```bash
 alias lrit="luarocks install --tree ./lua_modules"
 ```
 
