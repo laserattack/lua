@@ -1,3 +1,6 @@
+-- Dependencies: GCC
+
+
 -- Возвращает таблицу с функциями из C-кода
 ---@param c_code string Исходный C-код
 ---@param defs string Объявления функций для FFI (как в ffi.cdef)
