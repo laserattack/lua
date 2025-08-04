@@ -1,5 +1,8 @@
 -- Пример
 -- lj dump.lua /usr/local/bin/luajit
+-- lj dump.lua dump.lua
+-- можно также передать аргумент для вывода дампа в файл типо
+-- lj dump.lua /usr/local/bin/luajit output
 
 local inp = assert(io.open(arg[1], "rb"))
 -- and возвращает первый аргумент если он ложный иначе второй
