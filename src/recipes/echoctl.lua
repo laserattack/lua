@@ -16,18 +16,9 @@ local function disable_control_echo()
     end
 end
 
-local uv = require("luv")
 
-do
-    local signal_handle = uv.new_signal()
-    uv.signal_start(signal_handle, "sigint", function(signal)
-        print("signal handled:", signal)
-        uv.stop()
-    end)
-
-    disable_control_echo()
-end
+disable_control_echo()
 
 print("Press Ctrl+C for exit...")
 
-uv.run()
+while true do end
