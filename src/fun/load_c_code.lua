@@ -1,12 +1,11 @@
 -- Dependencies: GCC
 
-
 -- Возвращает таблицу с функциями из C-кода
----@param c_code string Исходный C-код
----@param defs string Объявления функций для FFI (как в ffi.cdef)
----@return boolean success
----@return table|nil lib Таблица с функциями или nil при ошибке
----@return string|nil error Сообщение об ошибке
+--@param c_code string Исходный C-код
+--@param defs string Объявления функций для FFI (как в ffi.cdef)
+--@return boolean success
+--@return table|nil lib Таблица с функциями или nil при ошибке
+--@return string|nil error Сообщение об ошибке
 local function load_c_code(c_code, defs)
     local c_file = "./__temp_code.c"
     local so_file = "./__temp_code.so"
