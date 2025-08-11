@@ -297,7 +297,7 @@ luarocks install --tree ./lua_modules luasocket
 # Источники информации
 
 - Роберту Иерузалимски - "Программирование на языке Lua"
-- Офф. сайт LuaJIT - [luajit.org](https://luajit.org/)
+- Оф. сайт LuaJIT - [luajit.org](https://luajit.org/)
 - Lua 5.1 Reference Manual - [www.lua.org/manual/5.1/](https://www.lua.org/manual/5.1/)
 - Lua 5.1 Reference Manual на русском - [linuxshare.ru/docs/devel/languages/lua/reference/index.html](https://linuxshare.ru/docs/devel/languages/lua/reference/index.html)
 - Документация пакета `luv` (libuv биндинги для lua) - [github.com/luvit/luv/blob/master/docs/docs.md](https://github.com/luvit/luv/blob/master/docs/docs.md)
